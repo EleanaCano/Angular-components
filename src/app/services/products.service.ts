@@ -24,4 +24,8 @@ export class ProductsService {
   create(data: createProduct) {
     return this.http.post<Product>(this.apiUrl, data);
   }
+
+  delete(id: string) {
+    return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
+  }
 }

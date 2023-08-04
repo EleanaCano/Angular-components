@@ -78,4 +78,15 @@ export class ProductsVComponent implements OnInit {
       this.products.unshift(data);
     });
   }
+
+  deleteProduct() {
+    const id = this. productChosen.id;
+    this.productService.delete(id)
+    .subscribe(data => {
+      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
+      this.products.splice(productIndex, 1);
+      this.showProductDetail = false;
+    });
+
+  }
 }
