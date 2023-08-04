@@ -15,6 +15,22 @@ export class ProductsVComponent implements OnInit {
   today = new Date();
   date = new Date(2021, 1, 25);
   showProductDetail = false;
+  productChosen: Product = {
+    id: '',
+    title: '',
+    price: 0,
+    images: [],
+    description: '',
+    creationAt: '',
+    updatedAt: '',
+    category: {
+      id: '',
+      name: '',
+      image: '',
+      creationAt: '',
+      updatedAt: '',
+    },  
+  };
 
   constructor(
     private storeService: StoreService,
@@ -42,7 +58,8 @@ export class ProductsVComponent implements OnInit {
   onShowDetail(id: string) {
     this.productService.getProduct(id)
     .subscribe(data => {
-      console.log('product', data);
+      this.toggleProductDetail();
+      this.productChosen = data;
     })
   }
 }
