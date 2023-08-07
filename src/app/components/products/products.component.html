@@ -1,4 +1,6 @@
-<app-img *ngIf="product.images.length" [img]="product.images[0]"></app-img>
+<a [routerLink]="['/product', product.id]">
+    <app-img *ngIf="product.images.length" [img]="product.images[0]"></app-img>
+</a>
 <h1>{{product.price | currency: 'USD'}}</h1>
 <p>{{product.title}}</p>
 <button (click)="onShowDetail()">Ver detalle</button>

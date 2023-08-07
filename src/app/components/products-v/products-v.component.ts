@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product, createProduct } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
@@ -8,13 +8,21 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './products-v.component.html',
   styleUrls: ['./products-v.component.scss']
 })
-export class ProductsVComponent implements OnInit {
+export class ProductsVComponent {
+
+  @Input() products: Product[] = [];
+  //@Input() productId: string | null = null;
+  @Input() set productId(id: string | null){
+    if (id) {
+      this.onShowDetail(id);
+    }
+  }
+  @Output() loadMore = new EventEmitter();
+
   myShoppingCart: Product[] = [];
   total = 0;
-  products: Product[] = [];
-  today = new Date();
-  date = new Date(2021, 1, 25);
   showProductDetail = false;
+  
   productChosen: Product = {
     id: '',
     title: '',
@@ -32,21 +40,11 @@ export class ProductsVComponent implements OnInit {
     },  
   };
 
-  limit = 10;
-  offset = 0;
-
   constructor(
     private storeService: StoreService,
     private productService: ProductsService,
   ) {
     this.myShoppingCart = this.storeService.getShoppingCart();
-  }
-
-  ngOnInit(): void {
-    this.productService.getProductByPage(10,0)
-    .subscribe(data => {
-      this.products = data;
-    })
   }
 
   onAddToShoppingCart(product: Product) {
@@ -59,6 +57,9 @@ export class ProductsVComponent implements OnInit {
   }
 
   onShowDetail(id: string) {
+    if (!this.showProductDetail) {
+      this.showProductDetail = true;
+    }
     this.productService.getProduct(id)
     .subscribe(data => {
       this.toggleProductDetail();
@@ -92,11 +93,7 @@ export class ProductsVComponent implements OnInit {
     });
   }
 
-  loadMore() {
-    this.productService.getProductByPage(this.limit, this.offset)
-    .subscribe(data => {
-      this.products = this.products.concat(data);
-      this.offset += this.limit;
-    });
+  onLoadMore() {
+    this.loadMore.emit();
   }
 }
