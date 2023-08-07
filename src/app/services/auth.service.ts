@@ -39,7 +39,7 @@ export class AuthService {
   loginAndGet(email: string, password: string) {
     return this.login(email, password)
     .pipe(
-      switchMap(rta => this.profile(rta.access_token))
+      switchMap(() => this.profile()),
     )
   }
 }
