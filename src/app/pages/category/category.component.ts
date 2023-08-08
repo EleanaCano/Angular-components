@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
@@ -7,7 +7,7 @@ import { Product } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-category',
-  template: `<app-products-v [products]="products" (loadMore)="onLoadMore()"></app-products-v>`,
+  template: `<app-products-v [productId]="productId" [products]="products" (loadMore)="onLoadMore()"></app-products-v>`,
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
@@ -16,6 +16,7 @@ export class CategoryComponent implements OnInit {
   limit = 10;
   offset = 0;
   products: Product[] = [];
+  productId: string | null = null;
 
   constructor(
     private route: ActivatedRoute, 
@@ -36,6 +37,9 @@ export class CategoryComponent implements OnInit {
     .subscribe((data) => {
       this.products = data;
     });
+    this.route.queryParamMap.subscribe(params => {
+      this.productId = params.get('product');
+    })
   }
 
   onLoadMore() {

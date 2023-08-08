@@ -62,7 +62,6 @@ export class ProductsVComponent {
     }
     this.productService.getProduct(id)
     .subscribe(data => {
-      this.toggleProductDetail();
       this.productChosen = data;
     })
   }

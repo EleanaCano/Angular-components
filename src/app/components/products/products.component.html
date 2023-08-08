@@ -3,5 +3,5 @@
 </a>
 <h1>{{product.price | currency: 'USD'}}</h1>
 <p>{{product.title}}</p>
-<button (click)="onShowDetail()">Ver detalle</button>
+<button routerLink="." [queryParams]="{product: product.id}">Ver Detalle</button>
 <button (click)="onAddToCart()">Add cart</button>
