@@ -36,13 +36,18 @@
             </div>
         </nav>
         <div class="info">
-            <div class="account">eleanacano@gmail.com</div>
-            <div>
-                <a href="">
-                    <img src="./assets/svg/icon_shopping_cart.svg" alt="logo">
-                </a>
-                <span class="counter">{{counter}}</span>
+            <div class="account">
+              <button *ngIf="!profile; else elseBlock" (click)="login()">Login</button>
+              <ng-template #elseBlock>
+                <a routerLink="/profile">{{ profile?.email }}</a>
+                <button (click)="logout()">Logout</button>
+              </ng-template>
             </div>
+        <div class="cart">
+            <a href="">
+                <img src="./assets/svg/icon_shopping_cart.svg" alt="logo">
+            </a>
+            <span class="counter">{{counter}}</span>
         </div>
     </div>
 </div>

@@ -37,18 +37,4 @@ export class AppComponent {
       console.log(rta);
     });
   }
-
-  login() {
-    this.authService.login('eleana@mail.com', 'changeme2023')
-    .subscribe(rta => {
-      console.log(rta);
-      //this.token = rta.access_token;
-    });
-  }
-
-  getProfile() {
-    this.authService.profile()
-    .subscribe(profile =>
-      console.log(profile));
-  }
 }
