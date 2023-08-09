@@ -36,7 +36,7 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
     RegisterComponent,
     RecoveryComponent,
     ProfileComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
   ],
   imports: [
     BrowserModule,
