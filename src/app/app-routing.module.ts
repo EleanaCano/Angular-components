@@ -13,6 +13,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 
 import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -51,6 +52,7 @@ const routes: Routes = [
   },
   {
     path: 'recovery',
+    canActivate: [AdminGuard],
     component: RecoveryComponent
   },
   {
